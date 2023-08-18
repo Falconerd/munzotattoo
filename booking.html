@@ -164,6 +164,11 @@
         .grecaptcha-badge {
             visibility: hidden !important;
         }
+
+        #booking-submit-status {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
     </style>
 
     <script src="https://unpkg.com/htmx.org"></script>
@@ -179,7 +184,7 @@
         <div hx-get="/booking-heading" hx-trigger="load" hx-target="#booking-heading"></div>
         <main>
             <form id="booking-form" enctype="multipart/form-data" hx-encoding="multipart/form-data" hx-post="/booking"
-                hx-trigger="verified" hx-target="#booking-submit-status" hx-indicator="#booking-submit-indicator"
+                hx-trigger="verified" hx-target="#booking-submit-status"
                 hx-swap="innerHTML" hx-boost="true" hx-error="handleBookingError" hx-validate="false">
                 <div id="hide-on-success">
                     <div id="booking-heading"></div>
@@ -274,11 +279,6 @@
                         <textarea id="comment" name="comment"></textarea>
                     </div>
                 </div>
-                <div id="booking-submit-indicator" class="htmx-indicator" style="display:none">
-                    Sending...
-                    <br />
-                    This may take a while as the images you provided are uploaded.
-                </div>
                 <div id="booking-submit-status"></div>
                 <button data-sitekey="6Lfy-7UnAAAAABnYkCWwfGk7d3JaweQHWQUdLBm0" data-callback="announceBooking"
                     class="g-recaptcha" type="submit" id="submit" name="submit" value="submit">
@@ -306,6 +306,7 @@
         document.body.addEventListener('htmx:beforeRequest', function (event) {
             if (event.detail.elt.id === "booking-form") {
                 document.getElementById("submit").style.display = "none"
+                document.getElementById("booking-submit-status").innerHTML = "Sending...<br>This may take a few seconds as the images you provided are uploaded."
             }
         });
 
