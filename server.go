@@ -198,6 +198,9 @@ func bioHandler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintf(w, "Bio updated successfully.")
 	} else {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
 		http.ServeFile(w, r, "bio_content.html")
 	}
 }
@@ -231,6 +234,9 @@ func bookingHeadingHandler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintf(w, "Booking heading updated successfully.")
 	} else {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
 		http.ServeFile(w, r, "booking_heading_content.html")
 	}
 }
@@ -266,6 +272,9 @@ func availabilitiesHandler(w http.ResponseWriter, r *http.Request) {
 
 		fmt.Fprintf(w, "Availabilities updated successfully.")
 	} else {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
 		http.ServeFile(w, r, "availabilities_content.html")
 	}
 }
