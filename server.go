@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -293,7 +294,27 @@ func signupHandler(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "footer_content.html")
 	}
 
-	// Now, you can use the email value
+	data := map[string]interface{}{
+		"Name":  name,
+		"Email": email,
+	}
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		http.Error(w, "Failed to encode data", http.StatusInternalServerError)
+		return
+	}
+
+	moosendAPIURL := fmt.Sprintf(
+		"https://api.moosend.com/v3/subscribers/%s/subscribe.json?apikey=%s",
+		os.Getenv("MOOSEND_LIST_ID"),
+		os.Getenv("MOOSEND_API_KEY"))
+	resp, err := http.Post(moosendAPIURL, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil || resp.StatusCode != http.StatusOK {
+		http.Error(w, "Failed to sign up to Moosend", http.StatusInternalServerError)
+		return
+	}
+
 	if name == "" {
 		fmt.Fprintf(w, "Thank you for signing up with %s!", email)
 	} else {
