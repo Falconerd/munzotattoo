@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Short description of your website.">
+    <meta name="keywords" content="comma, separated, keywords">
+    <meta name="author" content="Author Name">
+
+    <!-- Social Media Meta Tags (Example for Open Graph used by Facebook and others) -->
+    <meta property="og:title" content="Title for Social Sharing">
+    <meta property="og:description" content="Description for Social Sharing">
+    <meta property="og:image" content="URL_to_image_for_social_sharing.png">
+    <meta property="og:url" content="https://yourwebsite.com/page">
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Title for Twitter">
+    <meta name="twitter:description" content="Description for Twitter">
+    <meta name="twitter:image" content="URL_to_image_for_twitter.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        .hide-until-loaded {
+            display: none;
+        }
+
+        /* Flex display for the form groups */
+        .booking-input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            /* Add margin to the bottom of each group for spacing */
+        }
+
+        /* Add margin to the top and bottom */
+        .my-05 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Styles for inputs */
+        input[type=text],
+        input[type=email],
+        textarea {
+            padding: 0.5rem;
+            margin: 0;
+            border: 1px solid #ccc;
+            width: 100%;
+            /* Make the input fields take the full width of their parent */
+            box-sizing: border-box;
+            /* Ensure padding and border are included in the total width */
+        }
+
+        #newsletter input {
+            margin: 0.5rem 0;
+        }
+
+        textarea {
+            margin-bottom: 0;
+            min-height: 200px;
+        }
+
+        /* Styles for radio buttons and checkboxes */
+        input[type=radio],
+        input[type=checkbox] {
+            margin-right: 0.5rem;
+            /* Space between the checkbox/radio and its label */
+        }
+
+        /* Style for file input */
+        input[type=file] {
+            margin-top: 0.5rem;
+        }
+
+        /* Add some space between radio buttons and checkboxes */
+        .booking-input-group label:not(:last-child) {
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Style for the small text */
+        em>small {
+            display: block;
+            /* Make the text display on a new line */
+            margin-top: 0.5rem;
+        }
+
+        /* Style the custom label */
+        .custom-file-upload {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            padding-top: 3rem;
+            border: 1px solid #ccc;
+            text-align: center;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzkiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAzOSAyOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTMyLjM3NSAxMi4xODc1QzMxLjUgNS42ODc1IDI2IDAuODc1IDE5LjM3NSAwLjg3NUMxMy42ODc1IDAuODc1IDguNzUgNC40Mzc1IDYuOTM3NSA5LjgxMjVDMi44NzUgMTAuNjg3NSAwIDE0LjE4NzUgMCAxOC4zNzVDMCAyMi45Mzc1IDMuNTYyNSAyNi43NSA4LjEyNSAyNy4xMjVIMzEuODc1SDMxLjkzNzVDMzUuNzUgMjYuNzUgMzguNzUgMjMuNSAzOC43NSAxOS42MjVDMzguNzUgMTUuOTM3NSAzNiAxMi43NSAzMi4zNzUgMTIuMTg3NVpNMjYuMDYyNSAxNS42ODc1QzI1LjkzNzUgMTUuODEyNSAyNS44MTI1IDE1Ljg3NSAyNS42MjUgMTUuODc1QzI1LjQzNzUgMTUuODc1IDI1LjMxMjUgMTUuODEyNSAyNS4xODc1IDE1LjY4NzVMMjAgMTAuNVYyMi43NUMyMCAyMy4xMjUgMTkuNzUgMjMuMzc1IDE5LjM3NSAyMy4zNzVDMTkgMjMuMzc1IDE4Ljc1IDIzLjEyNSAxOC43NSAyMi43NVYxMC41TDEzLjU2MjUgMTUuNjg3NUMxMy4zMTI1IDE1LjkzNzUgMTIuOTM3NSAxNS45Mzc1IDEyLjY4NzUgMTUuNjg3NUMxMi40Mzc1IDE1LjQzNzUgMTIuNDM3NSAxNS4wNjI1IDEyLjY4NzUgMTQuODEyNUwxOC45Mzc1IDguNTYyNUMxOSA4LjUgMTkuMDYyNSA4LjQzNzUgMTkuMTI1IDguNDM3NUMxOS4yNSA4LjM3NSAxOS40Mzc1IDguMzc1IDE5LjYyNSA4LjQzNzVDMTkuNjg3NSA4LjUgMTkuNzUgOC41IDE5LjgxMjUgOC41NjI1TDI2LjA2MjUgMTQuODEyNUMyNi4zMTI1IDE1LjA2MjUgMjYuMzEyNSAxNS40Mzc1IDI2LjA2MjUgMTUuNjg3NVoiIGZpbGw9IiM0MjQ3NTYiLz4KPC9zdmc+Cg==);
+            background-repeat: no-repeat;
+            background-position: center 25%;
+        }
+
+        /* Change label background on hover for better UX */
+        .custom-file-upload:hover {
+            background-color: #e8e8e8;
+        }
+
+        /* Hide the actual file input */
+        #placement,
+        #reference-1,
+        #reference-2,
+        #reference-3 {
+            display: none;
+        }
+
+        /* Style for the list of uploaded files */
+        .uploaded-files {
+            margin-top: 1rem;
+            list-style-type: none;
+            /* Remove default bullets */
+            padding-left: 0;
+        }
+
+        .uploaded-files li {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .form-heading {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        #booking-form {
+            margin: 0 auto;
+            max-width: 768px;
+        }
+
+        @media (min-width: 768px) {
+            .side-by-side-on-desktop {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+            }
+
+            .side-by-side-on-desktop .booking-input-group {
+                flex: 1;
+            }
+        }
+
+        .grecaptcha-badge {
+            visibility: hidden !important;
+        }
+    </style>
+
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lfy-7UnAAAAABnYkCWwfGk7d3JaweQHWQUdLBm0"></script>
+
+    <title>Munzo Tattoo</title>
+</head>
+
+<body>
+    <div id="hidden" class="hide-until-loaded">
+        <header hx-get="/header" hx-trigger="load"></header>
+        <div hx-get="/availabilities" hx-trigger="load" hx-target="#availabilities"></div>
+        <div hx-get="/booking-heading" hx-trigger="load" hx-target="#booking-heading"></div>
+        <main>
+            <form id="booking-form" enctype="multipart/form-data" hx-encoding="multipart/form-data" hx-post="/booking"
+                hx-trigger="verified" hx-target="#booking-submit-status" hx-indicator="#booking-submit-indicator"
+                hx-swap="innerHTML" hx-boost="true" hx-error="handleBookingError" hx-validate="false">
+                <div id="hide-on-success">
+                    <div id="booking-heading"></div>
+                    <h3>Tattoo request</h3>
+                    <p class="my-05">This form will help me understand your project and determine if I am the right
+                        artist
+                        for you.I look forward to hearing your story.</p>
+                    <div class="side-by-side-on-desktop">
+                        <div class="booking-input-group">
+                            <label for="first-name"><strong>First Name *</strong></label>
+                            <input id="first-name" name="firstName" type="text">
+                        </div>
+                        <div class="booking-input-group">
+                            <label for="last-name"><strong>Last Name *</strong></label>
+                            <input id="last-name" name="lastName" type="text">
+                        </div>
+                    </div>
+                    <div class="booking-input-group">
+                        <label for="email"><strong>Email address *</strong></label>
+                        <input id="email" name="email" type="email">
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Have you been tattooed by me before? *</span>
+                        <label><input type="radio" name="pastClient" value="yes">Yes</label>
+                        <label><input type="radio" name="pastClient" value="no">No</label>
+                    </div>
+                    <div class="booking-input-group">
+                        <label for="idea">Your idea/concept (please describe as thoroughly as possible) *</label>
+                        <textarea id="idea" name="idea"></textarea>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Size *</span>
+                        <label><input type="radio" name="size" value="12cm-15cm">12cm-15cm</label>
+                        <label><input type="radio" name="size" value="15cm-20cm">15cm-20cm</label>
+                        <label><input type="radio" name="size" value="20cm-30cm">20cm-30cm</label>
+                        <label><input type="radio" name="size" value="30cm+">30cm and more</label>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Best days for an appointment *</span>
+                        <div id="availabilities"></div>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Placement (photo of your body placement) *</span>
+                        <em><small>Clear photo of the area you would like the design on yourself</small></em>
+                        <div class="file-upload-container">
+                            <label for="placement" class="custom-file-upload">
+                                Upload an Image
+                            </label>
+                            <input type="file" name="placement" id="placement"
+                                accept=".webp, .jpg, .jpeg, .png, .gif, .bmp">
+                            <ul id="placement-files" class="uploaded-files"></ul>
+                        </div>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Reference 1 *</span>
+                        <em><small>Design reference 1</small></em>
+                        <div class="file-upload-container">
+                            <label for="reference-1" class="custom-file-upload">
+                                Upload an Image
+                            </label>
+                            <input type="file" name="reference-1" id="reference-1"
+                                accept=".webp, .jpg, .jpeg, .png, .gif, .bmp">
+                            <ul id="reference-1-files" class="uploaded-files"></ul>
+                        </div>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Reference 2 *</span>
+                        <em><small>Design reference 2</small></em>
+                        <div class="file-upload-container">
+                            <label for="reference-2" class="custom-file-upload">
+                                Upload an Image
+                            </label>
+                            <input type="file" name="reference-2" id="reference-2"
+                                accept=".webp, .jpg, .jpeg, .png, .gif, .bmp">
+                            <ul id="reference-2-files" class="uploaded-files"></ul>
+                        </div>
+                    </div>
+                    <div class="booking-input-group">
+                        <span class="form-heading">Reference 3 *</span>
+                        <em><small>Design reference 3</small></em>
+                        <div class="file-upload-container">
+                            <label for="reference-3" class="custom-file-upload">
+                                Upload an Image
+                            </label>
+                            <input  type="file" name="reference-3" id="reference-3"
+                                accept=".webp, .jpg, .jpeg, .png, .gif, .bmp">
+                            <ul id="reference-3-files" class="uploaded-files"></ul>
+                        </div>
+                    </div>
+                    <div class="booking-input-group">
+                        <label for="comment">Comment</label>
+                        <textarea id="comment" name="comment"></textarea>
+                    </div>
+                </div>
+                <div id="booking-submit-indicator" class="htmx-indicator" style="display:none">
+                    Sending...
+                    <br />
+                    This may take a while as the images you provided are uploaded.
+                </div>
+                <div id="booking-submit-status"></div>
+                <button data-sitekey="6Lfy-7UnAAAAABnYkCWwfGk7d3JaweQHWQUdLBm0" data-callback="announceBooking"
+                    class="g-recaptcha" type="submit" id="submit" name="submit" value="submit">
+                    Submit
+                </button>
+            </form>
+        </main>
+
+        <footer hx-get="/footer" hx-trigger="load"></footer>
+    </div>
+
+    <script>
+
+        function announceBooking() {
+            const event = new Event("verified")
+            const elem = document.getElementById("booking-form")
+            elem.dispatchEvent(event)
+        }
+
+        document.body.addEventListener('htmx:onError', function (event) {
+            // Your code here
+            console.log('There was an error with the form submission!');
+        });
+
+        document.body.addEventListener('htmx:beforeRequest', function (event) {
+            if (event.detail.elt.id === "booking-form") {
+                document.getElementById("submit").style.display = "none"
+            }
+        });
+
+        document.body.addEventListener('htmx:afterRequest', function (event) {
+            if (event.detail.elt.id === "booking-form") {
+                if (event.detail.failed) {
+                    document.getElementById("submit").style.display = "inline"
+                    document.getElementById("booking-submit-status").innerHTML = event.detail.xhr.response
+                } else {
+                    document.getElementById("hide-on-success").style.display = "none"
+                }
+            }
+        });
+
+        document.body.addEventListener('htmx:afterOnLoad', function (event) {
+            // Find the target element of the HTMX call and display it
+            var el = document.getElementById("hidden");
+            el.style.display = 'block';
+        });
+
+        document.getElementById('placement').addEventListener('change', function (e) {
+            const filesList = document.querySelector('#placement-files');
+            filesList.innerHTML = ""; // Clear the current list
+            for (let i = 0; i < e.target.files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = e.target.files[i].name;
+                filesList.appendChild(li);
+            }
+        });
+
+        document.getElementById('reference-1').addEventListener('change', function (e) {
+            const filesList = document.querySelector('#reference-1-files');
+            filesList.innerHTML = ""; // Clear the current list
+            for (let i = 0; i < e.target.files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = e.target.files[i].name;
+                filesList.appendChild(li);
+            }
+        });
+
+        document.getElementById('reference-2').addEventListener('change', function (e) {
+            const filesList = document.querySelector('#reference-2-files');
+            filesList.innerHTML = ""; // Clear the current list
+            for (let i = 0; i < e.target.files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = e.target.files[i].name;
+                filesList.appendChild(li);
+            }
+        });
+
+        document.getElementById('reference-3').addEventListener('change', function (e) {
+            const filesList = document.querySelector('#reference-3-files');
+            filesList.innerHTML = ""; // Clear the current list
+            for (let i = 0; i < e.target.files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = e.target.files[i].name;
+                filesList.appendChild(li);
+            }
+        });
+    </script>
+</body>
+
+</html>

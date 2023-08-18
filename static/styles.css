@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: white;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto; /* To maintain the aspect ratio */
+}
+
+main {
+    padding: 1rem;
+}
+
+footer {
+    margin-bottom: 1rem;
+}
+
+/* Styles for desktop and large devices */
+.container {
+    display: flex;
+    gap: 1rem; /* Space between columns */
+    width: 100%;
+}
+
+.column {
+    flex: 1; /* Equal width columns */
+}
+
+.framed {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for mobile or tablet portrait */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    footer {
+        margin: 1rem;
+    }
+}
+
+.hide-until-loaded {
+    display: none;
+}
+
+header {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+header h1 {
+    letter-spacing: 0.3rem;
+    font-weight: 300;
+    text-align: center;
+    font-size: 1.7rem;
+    margin: 0.5rem 0;
+}
+
+nav {
+    text-align: center;
+}
+
+nav > a {
+    margin: 1rem;
+    color: black;
+}
+
+#newsletter {
+    max-width: 400px; /* Adjust as per your requirements */
+    margin: 0 auto;
+    text-align: center;
+}
+
+#newsletter p {
+    margin-bottom: 1rem;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#newsletter label {
+    flex-basis: 50%; 
+    text-align: right;
+    margin-right: 0.5rem; /* space between label and input */
+}
+
+#newsletter input {
+    flex-basis: 45%; 
+    flex-grow: 1; /* allows input to take the available space if any */
+}
+
+#newsletter-button {
+    width: 100%;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+}
+
+button {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #333333; /* Slightly lighter shade for hover effect */
+}
+
+button:active {
+    background-color: #666666; /* Even lighter shade for active effect */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 100%; /* Makes the input take the full width of its container */
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid #000000;
+    color: #000000;
+    background-color: #ffffff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    border-color: #333333; /* Slightly lighter shade for focus effect */
+    outline: none; /* Removes the default browser outline */
+}
+
+.trix-button-group--file-tools {
+    display: none !important;
+}

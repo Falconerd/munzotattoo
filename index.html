@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Short description of your website.">
+    <meta name="keywords" content="comma, separated, keywords">
+    <meta name="author" content="Author Name">
+
+    <!-- Social Media Meta Tags (Example for Open Graph used by Facebook and others) -->
+    <meta property="og:title" content="Title for Social Sharing">
+    <meta property="og:description" content="Description for Social Sharing">
+    <meta property="og:image" content="URL_to_image_for_social_sharing.png">
+    <meta property="og:url" content="https://yourwebsite.com/page">
+
+    <!-- For Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Title for Twitter">
+    <meta name="twitter:description" content="Description for Twitter">
+    <meta name="twitter:image" content="URL_to_image_for_twitter.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon">
+
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="static/styles.css">
+
+    <script src="https://unpkg.com/htmx.org"></script>
+
+    <title>Munzo Tattoo</title>
+</head>
+
+<body>
+    <div id="hidden" class="hide-until-loaded">
+        <header hx-get="/header" hx-trigger="load"></header>
+
+        <main>
+            <div class="container">
+                <div class="column">
+                    <img src="static/images/munzo.jpg">
+                </div>
+                <div class="column" hx-get="/bio" hx-trigger="load">
+                </div>
+            </div>
+        </main>
+
+        <footer hx-get="/footer" hx-trigger="load"></footer>
+    </div>
+
+    <script>
+        document.body.addEventListener('htmx:afterOnLoad', function (event) {
+            var el = document.getElementById("hidden");
+            el.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>

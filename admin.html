@@ -1,0 +1,97 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+    <title>Admin - Munzo Tattoo</title>
+    <style>
+        #bio-editor {
+            min-height: 300px;
+            max-height: 600px;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            margin-top: 0;
+            font-weight: bold;
+        }
+
+        button[type=submit] {
+            margin-top: 0.5rem;
+        }
+
+        .d-b {
+            display: block;
+        }
+    </style>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script>
+        document.addEventListener('trix-file-accept', function (event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener('trix-initialize', function (event) {
+            const initEvent = new Event("trix-initialized")
+            switch (event.target.id) {
+                case "bio-editor":
+                    document.getElementById("load-bio").dispatchEvent(initEvent)
+                    return
+                case "booking-heading-editor":
+                    document.getElementById("load-booking-heading").dispatchEvent(initEvent)
+                    return
+            }
+        });
+
+        document.addEventListener('htmx:afterSwap', function (event) {
+            switch (event.detail.target.id) {
+                case "load-bio":
+                    document.getElementById("bio-editor").value = event.detail.target.innerHTML
+                    event.detail.target.remove()
+                    return
+                case "load-booking-heading":
+                    document.getElementById("booking-heading-editor").value = event.detail.target.innerHTML
+                    event.detail.target.remove()
+                    return
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <main>
+        <form class="framed" hx-post="/update-bio" hx-target="#status-bio">
+            <h2>Bio Text</h2>
+            <input id="bio-x" type="hidden" name="content">
+            <trix-editor input="bio-x" id="bio-editor"></trix-editor>
+            <button type="submit">Update Bio</button>
+            <div id="status-bio"></div>
+        </form>
+        <div id="load-bio" hx-get="/bio" hx-trigger="trix-initialized"></div>
+
+        <form class="framed" hx-post="/update-booking-heading" hx-target="#status-booking-heading">
+            <h2>Booking Heading</h2>
+            <input id="booking-heading-x" type="hidden" name="content">
+            <trix-editor input="booking-heading-x" id="booking-heading-editor"></trix-editor>
+            <button type="submit">Update Booking Heading</button>
+            <div id="status-booking-heading"></div>
+        </form>
+        <div id="load-booking-heading" hx-get="/booking-heading" hx-trigger="trix-initialized"></div>
+        <form class="framed" hx-post="/update-availabilities" hx-target="#status-availabilities">
+            <h2>Available Days</h2>
+            <label class="d-b"><input type="checkbox" name="Sunday" value="Sunday">Sunday</label>
+            <label class="d-b"><input type="checkbox" name="Monday" value="Monday">Monday</label>
+            <label class="d-b"><input type="checkbox" name="Tuesday" value="Tuesday">Tuesday</label>
+            <label class="d-b"><input type="checkbox" name="Wednesday" value="Wednesday">Wednesday</label>
+            <label class="d-b"><input type="checkbox" name="Thursday" value="Thursday">Thursday</label>
+            <label class="d-b"><input type="checkbox" name="Friday" value="Friday">Friday</label>
+            <label class="d-b"><input type="checkbox" name="Saturday" value="Saturday">Saturday</label>
+            <button type="submit">Update Availabilities</button>
+            <div id="status-availabilities"></div>
+        </form>
+    </main>
+</body>
+</html>
