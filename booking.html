@@ -164,11 +164,6 @@
         .grecaptcha-badge {
             visibility: hidden !important;
         }
-
-        #booking-submit-status {
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
     </style>
 
     <script src="https://unpkg.com/htmx.org"></script>
@@ -190,8 +185,7 @@
                     <div id="booking-heading"></div>
                     <h3>Tattoo request</h3>
                     <p class="my-05">This form will help me understand your project and determine if I am the right
-                        artist
-                        for you.I look forward to hearing your story.</p>
+                        artist for you. I look forward to hearing your story.</p>
                     <div class="side-by-side-on-desktop">
                         <div class="booking-input-group">
                             <label for="first-name"><strong>First Name *</strong></label>
@@ -279,7 +273,7 @@
                         <textarea id="comment" name="comment"></textarea>
                     </div>
                 </div>
-                <div id="booking-submit-status"></div>
+                <div id="booking-submit-status" class="my-05"></div>
                 <button data-sitekey="6Lfy-7UnAAAAABnYkCWwfGk7d3JaweQHWQUdLBm0" data-callback="announceBooking"
                     class="g-recaptcha" type="submit" id="submit" name="submit" value="submit">
                     Submit
