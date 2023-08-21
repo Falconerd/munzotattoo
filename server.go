@@ -145,7 +145,7 @@ func bookingHandler(w http.ResponseWriter, r *http.Request) {
 func sendBookingEmail(firstName, lastName, email, pastClient, size, day, idea, comment, placementFilename, reference1Filename, reference2Filename, reference3Filename string, placement, reference1, reference2, reference3 multipart.File) {
 	m := gomail.NewMessage()
 	m.SetHeader("From", "bookings@studioabsent.com")
-	m.SetHeader("To", "falcoderp@gmail.com")
+	m.SetHeader("To", "munzotattoo@gmail.com")
 	m.SetHeader("Subject", "New Booking Request")
 	m.SetBody("text/plain", fmt.Sprintf("New booking from %s %s (%s)\nIdea: %s\nSize: %s\nDay: %s\nPast Client: %s\nComment: %s\n", firstName, lastName, email, idea, size, day, pastClient, comment)) // Update this format with other collected data.
 	m.Attach(placementFilename, gomail.SetCopyFunc(func(w io.Writer) error {
